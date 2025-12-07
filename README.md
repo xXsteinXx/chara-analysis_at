@@ -1,117 +1,167 @@
-# The Midnight theme
+## Introduction
 
-[![.github/workflows/ci.yaml](https://github.com/pages-themes/midnight/actions/workflows/ci.yaml/badge.svg)](https://github.com/pages-themes/midnight/actions/workflows/ci.yaml) [![Gem Version](https://badge.fury.io/rb/jekyll-theme-midnight.svg)](https://badge.fury.io/rb/jekyll-theme-midnight)
+This site is meant to be a sort of essay/instruction/analysis all in one. There will be blocks of text explaining and analyzing the various code blocks and their outputs, as well as reflecting. Specifically, this research will be analysing the character Finn the Human and the Land of Ooo as they are written/presented in the first (Season 1) and last (Season 10) season of the show. The goal is to showcase possible small usecases for text generative AI, while critiquing the models, training, and use of gen-AI as a whole. This model training is is meant to create a supplementel tool for literature/media anlysis, not a "creative" generative AI. This a small, specific use case and would serve poorly as the main tool of character analysis.
 
-*Midnight is a Jekyll theme for GitHub Pages. You can [preview the theme to see what it looks like](http://pages-themes.github.io/midnight), or even [use it today](#usage).*
+## Considerations
 
-![Thumbnail of Midnight](thumbnail.png)
+## What is Adventure Time
 
-## Usage
+## Downloading the Transcript
 
-To use the Midnight theme:
+We need a dataset to train our model. We will use Beautiful Soup to scrape the trancripts, use loops to clean, then save the data as individual sentences in a csv file. For a list of episodes that aired in the first seaosn of Adventure Time, navigate to https://adventuretime.fandom.com/wiki/Season_1.
 
-1. Add the following to your site's `_config.yml`:
 
-    ```yml
-    remote_theme: pages-themes/midnight@v0.2.0
-    plugins:
-    - jekyll-remote-theme # add this line to the plugins list if you already have one
-    ```
+```py
+import requests
+from bs4 import BeautifulSoup as BS
+import lxml
+import re
+import pandas as pd
+import csv
 
-2. Optionally, if you'd like to preview your site on your computer, add the following to your site's `Gemfile`:
+# create list of episode titles from season 1
 
-    ```ruby
-    gem "github-pages", group: :jekyll_plugins
-    ```
+s1 = [
+    "Slumber Party Panic",
+    "Trouble in Lumpy Space",
+    "Prisoners of Love",
+    "Tree Trunks",
+    "The Enchiridion!",
+    "The Jiggler",
+    "Ricardio the Heart Guy",
+    "Business Time",
+    "My Two Favorite People",
+    "Memories of Boom Boom Mountain",
+    "Wizard",
+    "Evicted!",
+    "City of Thieves",
+    "The Witch's Garden",
+    "What is Life?",
+    "Ocean of Fear",
+    "When Wedding Bells Thaw",
+    "Dungeon",
+    "The Duke",
+    "Freak City",
+    "Donny",
+    "Henchman",
+    "Rainy Day Daydream",
+    "What Have You Done?",
+    "His Hero",
+    "Gut Grinder"
+]
 
-## Customizing
+# format episode titles for use in url
 
-### Configuration variables
+season_1 = []
 
-Midnight will respect the following variables, if set in your site's `_config.yml`:
+for i in s1:
+    if ' ' in i:
+        i = i.replace(' ', '_')
+        season_1.append(i)
+    else:
+        season_1.append(i)
 
-```yml
-title: [The title of your site]
-tagline: [A very short description of your site's purpose, used as subtitle]
-description: [A short description of your site's purpose (e.g. for search engines)]
+# fetch trancripts for each episode and add to single list
+# NOTE: this Community content is available under CC-BY-SA unless otherwise noted.
+
+s1_transcript = []
+
+for ep in season_1:
+    url = f'https://adventuretime.fandom.com/wiki/{ep}/Transcript'
+    site = requests.get(url)
+    source_code = site.content
+    soup = BS(source_code, 'lxml')
+    transcript = soup.find_all('dd')
+    for i in transcript:
+        s1_transcript.append(i)
+
+# convert b4.element.tag to strings
+
+s1_trans_str = []
+
+for i in s1_transcript:
+    string = str(i)
+    s1_trans_str.append(string)
+
+# remove superflous stuff
+
+s1_sentences = []
+
+for x in s1_trans_str:
+    x = x.replace(']', '')
+    x = x.replace('[', '')
+    x = x.replace('(', '')
+    x = x.replace(')', '')
+    x = re.sub('<.+?>', '', x)
+    x = x.replace(':', ' says') # the ':' signifies a character line
+    s1_sentences.append(x)
+
+df = pd.DataFrame({
+    'text' : s1_words # import to name text for transformers training
+})
+
+df.to_csv('at_s1_text.csv')
+
 ```
 
-Additionally, you may choose to set the following optional variables:
+## Training the Model
 
-```yml
-show_downloads: ["true" or "false" (unquoted) to indicate whether to provide a download URL]
-google_analytics: [Your Google Analytics tracking ID]
+The model used in this section is a fine tuning of the pretrained GPT-2 model found here: https://huggingface.co/openai-community/gpt2 and that can be further understood by the model card found here: https://github.com/openai/gpt-2/blob/master/model_card.md.
+
+The model training is best performed in Google Collab for easier interfacing with Hugging Face.
+
+```py
+pip install transformers datasets trl torch # run this one it's own first
+
+```
+```py
+from transformers import pipeline
+pipe = pipeline("text-generation", model="openai-community/gpt2")
+```
+```py
+import pandas as pd
+from datasets import Dataset
+
+# load in the csv file containing lines from the first seaosn transcript
+df = pd.read_csv('at_s1_trans.csv') # the entry here depends on where your file is stored on your computer
+dataset = Dataset.from_pandas(df)
 ```
 
-### Stylesheet
+## Loading in the Model
 
-If you'd like to add your own custom styles:
+```py
+# python code goes here
+```
 
-1. Create a file called `/assets/css/style.scss` in your site
-2. Add the following content to the top of the file, exactly as shown:
-    ```scss
-    ---
-    ---
+## Bias Test
 
-    @import "{{ site.theme }}";
-    ```
-3. Add any custom CSS (or Sass, including imports) you'd like immediately after the `@import` line
+The model card states:
 
-*Note: If you'd like to change the theme's Sass variables, you must set new values before the `@import` line in your stylesheet.*
+"Because large-scale language models like GPT-2 do not distinguish fact from fiction, we don’t support use-cases that require the generated text to be true.
 
-### Layouts
+Additionally, language models like GPT-2 reflect the biases inherent to the systems they were trained on, so we do not recommend that they be deployed into systems that interact with humans unless the deployers first carry out a study of biases relevant to the intended use-case. We found no statistically significant difference in gender, race, and religious bias probes between 774M and 1.5B, implying all versions of GPT-2 should be approached with similar levels of caution around use cases that are sensitive to biases around human attributes."
 
-If you'd like to change the theme's HTML layout:
+The model in this research is unlikely to present harmful bias based on the limited text it was provided to fine tuning, but we will run a short bias test to confirm this.
 
-1. For some changes such as a custom `favicon`, you can add custom files in your local `_includes` folder. The files [provided with the theme](https://github.com/pages-themes/midnight/tree/master/_includes) provide a starting point and are included by the [original layout template](https://github.com/pages-themes/midnight/blob/master/_layouts/default.html).
-2. For more extensive changes, [copy the original template](https://github.com/pages-themes/midnight/blob/master/_layouts/default.html) from the theme's repository<br />(*Pro-tip: click "raw" to make copying easier*)
-3. Create a file called `/_layouts/default.html` in your site
-4. Paste the default layout content copied in the first step
-5. Customize the layout as you'd like
+```py
+# python code goes here
+```
+### Analysis
 
-### Customizing Google Analytics code
+## Generating Statements from Season 1
 
-Google has released several iterations to their Google Analytics code over the years since this theme was first created. If you would like to take advantage of the latest code, paste it into `_includes/head-custom-google-analytics.html` in your Jekyll site.
+## Generating Statements from Season 10
 
-### Overriding GitHub-generated URLs
+## Analysis
 
-Templates often rely on URLs supplied by GitHub such as links to your repository or links to download your project. If you'd like to override one or more default URLs:
+```py
+# python code goes here
+```
 
-1. Look at [the template source](https://github.com/pages-themes/midnight/blob/master/_layouts/default.html) to determine the name of the variable. It will be in the form of `{{ site.github.zip_url }}`.
-2. Specify the URL that you'd like the template to use in your site's `_config.yml`. For example, if the variable was `site.github.url`, you'd add the following:
-    ```yml
-    github:
-      zip_url: http://example.com/download.zip
-      another_url: another value
-    ```
-3. When your site is built, Jekyll will use the URL you specified, rather than the default one provided by GitHub.
+## Discussion
 
-*Note: You must remove the `site.` prefix, and each variable name (after the `github.`) should be indent with two space below `github:`.*
+## Conclusion
 
-For more information, see [the Jekyll variables documentation](https://jekyllrb.com/docs/variables/).
+## Positionality Statement 
 
-## Roadmap
-
-See the [open issues](https://github.com/pages-themes/midnight/issues) for a list of proposed features (and known issues).
-
-## Project philosophy
-
-The Midnight theme is intended to make it quick and easy for GitHub Pages users to create their first (or 100th) website. The theme should meet the vast majority of users' needs out of the box, erring on the side of simplicity rather than flexibility, and provide users the opportunity to opt-in to additional complexity if they have specific needs or wish to further customize their experience (such as adding custom CSS or modifying the default layout). It should also look great, but that goes without saying.
-
-## Contributing
-
-Interested in contributing to Midnight? We'd love your help. Midnight is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](docs/CONTRIBUTING.md) for instructions on how to contribute.
-
-### Previewing the theme locally
-
-If you'd like to preview the theme locally (for example, in the process of proposing a change):
-
-1. Clone down the theme's repository (`git clone https://github.com/pages-themes/midnight`)
-2. `cd` into the theme's directory
-3. Run `script/bootstrap` to install the necessary dependencies
-4. Run `bundle exec jekyll serve` to start the preview server
-5. Visit [`localhost:4000`](http://localhost:4000) in your browser to preview the theme
-
-### Running tests
-
-The theme contains a minimal test suite, to ensure a site with the theme would build successfully. To run the tests, simply run `script/cibuild`. You'll need to run `script/bootstrap` once before the test script will work.
+The author is anti-generative-AI and supports the use of specificly trained models as a research tool, but only in the hands of persons who have educated themselves on the ethics of AI use. The models created in this research are not intended or developped to be used as "creative AI" to generate a transcript. Instead, the two models created, one trained on the first season transcript and the second on the tenth season transcript, are meant to be used as a text analysis tool to anilyse themes in the characters, plot, and world of Adventure Time.
