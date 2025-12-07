@@ -1,167 +1,72 @@
-## Introduction
+project title: A Case Study to Consider Transformers Models as a Tool for
+Character Analysis: Finn the Human from Adventure Time
 
-This site is meant to be a sort of essay/instruction/analysis all in one. There will be blocks of text explaining and analyzing the various code blocks and their outputs, as well as reflecting. Specifically, this research will be analysing the character Finn the Human and the Land of Ooo as they are written/presented in the first (Season 1) and last (Season 10) season of the show. The goal is to showcase possible small usecases for text generative AI, while critiquing the models, training, and use of gen-AI as a whole. This model training is is meant to create a supplementel tool for literature/media anlysis, not a "creative" generative AI. This a small, specific use case and would serve poorly as the main tool of character analysis.
+project description: The goal of this project is to explain and analyze
+how a pre-trained, text-generation model like GPT-2 can be used as a
+supplemental tool for character analysis in literature or other media. In
+this case I will be creating two separate fine tuned models using the
+first and last season’s transcripts of the Cartoon Network series,
+Adventure Time. I will prompt each model with the same prompts to compare
+and contrast the characterization of the main character of the series,
+Finn the Human, from the first to last season. The first season is full of
+juvenile jokes and pre-pubescent themes (Finn blushes around the (older-
+than-him) princess and enjoys punching bad guys and monsters). While there
+is no lack of silly jokes and scenarios in the final seasons, the show
+incorporates themes of maturation, sexuality, and existentialism that I as
+a pre-pubescent middle schooler in the early 2010s would have never
+expected. I will be testing if a fine-tuned model can reflect these
+character changes by comparing and contrasting generated text from the
+models fine-tuned on the first season and last season.
 
-## Considerations
+rationale statement: It is only in recent years that scholarly research
+has begun breaking down and analysing the entirety of Adventure Time. As
+an avid enjoyer of the series in an era where art and research are under
+threat by generative AI, I would like to analyze and critique the use of
+transmormers models as a character analysis tool. While this tool could be
+useful for quick generalizations of the characters and be supplemental to
+character analysis, it does not compare to the research and understanding
+that a viewer of the series would be able to cultivate. For someone who is
+not familiar with the material, only reading the model’s outputs would
+likely give a poor imitation of the characters themselves. I will be
+conducting this case study to highlight improper use of generative AI and
+the greater effectiveness (for research, efficiency, and energy use) of
+training and/or fine-tuning a hyper-specific model not intending to be
+“creatively” generative.
 
-## What is Adventure Time
+workflow: I will be utilizing requests, transformers, pipelines, pandas,
+BeautifulSoup4, lxml, re, and csv. Currently, my methods are to fine-tune
+GPT-2 via Hugging Face on the transcripts from the first and tenth season
+of the series. The transcripts were scrapped from the Adventure Time Wiki,
+a fan-made and sustained Wikipedia page with community content mostly
+under a CC-BY-SA license. Once fine-tuned, I will prompt each model with
+the starters “Finn”, “Finn’s emotions are”, “Finn’s emotions are not”,
+“Finn is/does”, “Finn is/does not”, and “Finn thinks”. I believe these
+prompts, based on previous experimentation, will return results that
+highlight Finn’s character, decisions, and emotions. Before prompting, I
+will be conducting a bias check on the models by prompting “a woman is”,
+“a man is”, and “a person is”. Doing so will highlight potential gender
+bias in the model and potentially reveal if the bias is due to the show
+itself or the GPT-2 model. As a watcher of the series, female characters
+were often treated as love interests in the series, so I am expecting a
+level of bias that generates for emotional responses for “a woman is”. If
+something about women is generated that would not make sense within the
+context of the show, than that would be bias inherent in the GPT-2 model.
+Finn is the only human character for the majority of the series, so in
+canon race does not exist.
 
-## Downloading the Transcript
+further uses: Throughout the process I will be explaining terms and
+methods used in fine-tuning for anyone who is unfamiliar with the process
+to understand aspects of generative AI. Many people, both who use and
+reject AI, do not fully understand how generative AI works. I myself am
+anti-AI by principle, but I do see and understand the merits of AI as an
+aspect to work and research in the hands of trained professionals. That
+being said, the materials for -fine-tuning in this case study are
+incredibly small and as of this moment I am only utilizing GPT-2. The bias
+in this study depends on this limited dataset and model scope, so my
+analysis of this tool is limited. I could mitigate this bias by testing
+with other pre-trained models, but the transcripts are a set length. I
+would also like to make an environmental impact statement, but am unsure
+how to measure the energy consumption of my testing. More research needs
+to be done before I can make any illuminating statement (perhaps a later
+expansion for this project).
 
-We need a dataset to train our model. We will use Beautiful Soup to scrape the trancripts, use loops to clean, then save the data as individual sentences in a csv file. For a list of episodes that aired in the first seaosn of Adventure Time, navigate to https://adventuretime.fandom.com/wiki/Season_1.
-
-
-```py
-import requests
-from bs4 import BeautifulSoup as BS
-import lxml
-import re
-import pandas as pd
-import csv
-
-# create list of episode titles from season 1
-
-s1 = [
-    "Slumber Party Panic",
-    "Trouble in Lumpy Space",
-    "Prisoners of Love",
-    "Tree Trunks",
-    "The Enchiridion!",
-    "The Jiggler",
-    "Ricardio the Heart Guy",
-    "Business Time",
-    "My Two Favorite People",
-    "Memories of Boom Boom Mountain",
-    "Wizard",
-    "Evicted!",
-    "City of Thieves",
-    "The Witch's Garden",
-    "What is Life?",
-    "Ocean of Fear",
-    "When Wedding Bells Thaw",
-    "Dungeon",
-    "The Duke",
-    "Freak City",
-    "Donny",
-    "Henchman",
-    "Rainy Day Daydream",
-    "What Have You Done?",
-    "His Hero",
-    "Gut Grinder"
-]
-
-# format episode titles for use in url
-
-season_1 = []
-
-for i in s1:
-    if ' ' in i:
-        i = i.replace(' ', '_')
-        season_1.append(i)
-    else:
-        season_1.append(i)
-
-# fetch trancripts for each episode and add to single list
-# NOTE: this Community content is available under CC-BY-SA unless otherwise noted.
-
-s1_transcript = []
-
-for ep in season_1:
-    url = f'https://adventuretime.fandom.com/wiki/{ep}/Transcript'
-    site = requests.get(url)
-    source_code = site.content
-    soup = BS(source_code, 'lxml')
-    transcript = soup.find_all('dd')
-    for i in transcript:
-        s1_transcript.append(i)
-
-# convert b4.element.tag to strings
-
-s1_trans_str = []
-
-for i in s1_transcript:
-    string = str(i)
-    s1_trans_str.append(string)
-
-# remove superflous stuff
-
-s1_sentences = []
-
-for x in s1_trans_str:
-    x = x.replace(']', '')
-    x = x.replace('[', '')
-    x = x.replace('(', '')
-    x = x.replace(')', '')
-    x = re.sub('<.+?>', '', x)
-    x = x.replace(':', ' says') # the ':' signifies a character line
-    s1_sentences.append(x)
-
-df = pd.DataFrame({
-    'text' : s1_words # import to name text for transformers training
-})
-
-df.to_csv('at_s1_text.csv')
-
-```
-
-## Training the Model
-
-The model used in this section is a fine tuning of the pretrained GPT-2 model found here: https://huggingface.co/openai-community/gpt2 and that can be further understood by the model card found here: https://github.com/openai/gpt-2/blob/master/model_card.md.
-
-The model training is best performed in Google Collab for easier interfacing with Hugging Face.
-
-```py
-pip install transformers datasets trl torch # run this one it's own first
-
-```
-```py
-from transformers import pipeline
-pipe = pipeline("text-generation", model="openai-community/gpt2")
-```
-```py
-import pandas as pd
-from datasets import Dataset
-
-# load in the csv file containing lines from the first seaosn transcript
-df = pd.read_csv('at_s1_trans.csv') # the entry here depends on where your file is stored on your computer
-dataset = Dataset.from_pandas(df)
-```
-
-## Loading in the Model
-
-```py
-# python code goes here
-```
-
-## Bias Test
-
-The model card states:
-
-"Because large-scale language models like GPT-2 do not distinguish fact from fiction, we don’t support use-cases that require the generated text to be true.
-
-Additionally, language models like GPT-2 reflect the biases inherent to the systems they were trained on, so we do not recommend that they be deployed into systems that interact with humans unless the deployers first carry out a study of biases relevant to the intended use-case. We found no statistically significant difference in gender, race, and religious bias probes between 774M and 1.5B, implying all versions of GPT-2 should be approached with similar levels of caution around use cases that are sensitive to biases around human attributes."
-
-The model in this research is unlikely to present harmful bias based on the limited text it was provided to fine tuning, but we will run a short bias test to confirm this.
-
-```py
-# python code goes here
-```
-### Analysis
-
-## Generating Statements from Season 1
-
-## Generating Statements from Season 10
-
-## Analysis
-
-```py
-# python code goes here
-```
-
-## Discussion
-
-## Conclusion
-
-## Positionality Statement 
-
-The author is anti-generative-AI and supports the use of specificly trained models as a research tool, but only in the hands of persons who have educated themselves on the ethics of AI use. The models created in this research are not intended or developped to be used as "creative AI" to generate a transcript. Instead, the two models created, one trained on the first season transcript and the second on the tenth season transcript, are meant to be used as a text analysis tool to anilyse themes in the characters, plot, and world of Adventure Time.
