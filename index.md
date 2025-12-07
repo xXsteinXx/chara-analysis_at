@@ -4,15 +4,17 @@ layout: default
 
 ## Introduction
 
-This site is meant to be a sort of essay/instruction/analysis all in one. There will be blocks of text explaining and analyzing the various code blocks and their outputs, as well as reflecting. Specifically, this research will be analysing the character Finn the Human and the Land of Ooo as they are written/presented in the first (Season 1) and last (Season 10) season of the show. The goal is to showcase possible small usecases for text generative AI, while critiquing the models, training, and use of gen-AI as a whole. This model training is is meant to create a supplementel tool for literature/media anlysis, not a "creative" generative AI. This a small, specific use case and would serve poorly as the main tool of character analysis.
-
-## Considerations
+The goal of this site is to create, explain, and analyze how a pre-trained, text-generation model like GPT-2 can be used as a supplemental tool for character analysis in literature or other media. In this case, creating two separate fine-tuned models using the first and last season’s transcripts of the Cartoon Network series, Adventure Time. Each fine-tuned model will be prompted with the same prompts to compare and contrast the characterization of the main character of the series, Finn the Human, from the first vs. last season. The goal is to showcase possible small use cases for text-generative AI, while critiquing the models, training, and use of gen-AI as a whole. This work is not a way to make a "creative" generative AI. This a small, specific use case and would serve poorly as the main tool of character analysis.
 
 ## What is Adventure Time
 
+Adventure Time is an award winning cartoon series created by Pendleton Ward that began airing in 2010 and wrapped its first series in 2018 (there are several spin-offs and mini-series). The show follows the adventures of Finn the Human and Jake the Dog, adoptive brothers who serve as the de-facto knights of the magical Land of Ooo. Finn is 12 years old, black-and-white thinking, violence seeking, and, as far as we know, the only living human in the first season. By the end of season 10, the last season of the series, Finn is 17, wisened, uses violence as a last resort, and has survived depression, break-ups, an absent father, and a Lich. The first season is full of juvenile jokes and pre-pubescent themes (Finn blushes around the (older-than-him) princess and enjoys punching bad guys and monsters). While there is no lack of silly jokes and scenarios in the final seasons, the show incorporates themes of maturation, sexuality, and existentialism. 
+
 ## Downloading the Transcript
 
-We need a dataset to train our model. We will use Beautiful Soup to scrape the trancripts, use loops to clean, then save the data as individual sentences in a csv file. For a list of episodes that aired in the first seaosn of Adventure Time, navigate to https://adventuretime.fandom.com/wiki/Season_1.
+We need a dataset to fine-tune a pre-trained model. A dataset, in this case, is a file of sentences from which we will fine-tune the model. Fine-tuning is a process of further training a pre-trained model on a smaller dataset for use in specific tasks. Pre-trained models are available via [Hugging Face](https://huggingface.co/), a platform for those invested in machine learning to share and collaborate on models, datasets, and applications. The models available on the site can be utlized by users without downloading the full model on your personal device. Your fine-tuned model can be saved an dutlized locally without further dependance on Hugging Face.
+
+We will use the BeautifulSoup library to scrape the trancripts, use loops to clean, then save the data as individual sentences in a csv file. For a list of episodes that aired in the first season of Adventure Time, navigate to https://adventuretime.fandom.com/wiki/Season_1.
 
 
 ```py
@@ -101,16 +103,16 @@ for x in s1_trans_str:
     s1_sentences.append(x)
 
 df = pd.DataFrame({
-    'text' : s1_words # import to name text for transformers training
+    'text' : s1_words # important to name text for fine-tuning later
 })
 
 df.to_csv('at_s1_text.csv')
 
 ```
 
-## Training the Model
+## Fine-tuning the Model
 
-The model used in this section is a fine tuning of the pretrained GPT-2 model found here: https://huggingface.co/openai-community/gpt2 and that can be further understood by the model card found here: https://github.com/openai/gpt-2/blob/master/model_card.md.
+The model used in this section is a fine-tuning of the pretrained GPT-2 model found here: https://huggingface.co/openai-community/gpt2 and that can be further understood by the model card found here: https://github.com/openai/gpt-2/blob/master/model_card.md.
 
 The model training is best performed in Google Collab for easier interfacing with Hugging Face.
 
