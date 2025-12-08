@@ -127,6 +127,9 @@ The model used in this section is a fine-tuning of the [pretrained GPT-2 model](
 The fine-tuning is best performed in [Google Colab](https://colab.research.google.com/) for easier interfacing with Hugging Face.
 
 ```py
+# code based on https://gofilipa.github.io/664/analyzing/generating/fine-tune.html
+# First, on the toolbar, where it says RAM DISK, change theruntime type to GPU.
+
 #%pip install transformers datasets trl torch # run this one it's own first
 
 ```
@@ -247,19 +250,18 @@ for i in range (0, 10):
   a_woman_is.append(x)
 
 a_woman_is
-
-# output for author:
-# [[{'generated_text': 'A woman is tied up in the rope and a man is behind bars.'}],
-#  [{'generated_text': 'A woman is seen crying and her two young children crying'}],
-#  [{'generated_text': 'A woman is shown kissing a man.'}],
-#  [{'generated_text': 'A woman is shown kissing a penguin and then kissing it on the cheek.'}],
-#  [{'generated_text': "A woman is seen floating near Finn and Jake's feet where Finn and Jake are sitting on them"}],
-#  [{'generated_text': 'A woman is heard crying.'}],
-#  [{'generated_text': 'A woman is in the center of the city, wearing a veil and wielding a dagger.'}],
-#  [{'generated_text': 'A woman is seen crying from the bottom of a pyramid'}],
-#  [{'generated_text': 'A woman is thrown in the air, face-down on her hind legs'}],
-#  [{'generated_text': "A woman is gripping Finn's arms while Finn is riding on her bike with her"}]]
 ```
+output for author:
+[[{'generated_text': 'A woman is tied up in the rope and a man is behind bars.'}],
+ [{'generated_text': 'A woman is seen crying and her two young children crying'}],
+ [{'generated_text': 'A woman is shown kissing a man.'}],
+ [{'generated_text': 'A woman is shown kissing a penguin and then kissing it on the cheek.'}],
+ [{'generated_text': "A woman is seen floating near Finn and Jake's feet where Finn and Jake are sitting on them"}],
+ [{'generated_text': 'A woman is heard crying.'}],
+ [{'generated_text': 'A woman is in the center of the city, wearing a veil and wielding a dagger.'}],
+ [{'generated_text': 'A woman is seen crying from the bottom of a pyramid'}],
+ [{'generated_text': 'A woman is thrown in the air, face-down on her hind legs'}],
+ [{'generated_text': "A woman is gripping Finn's arms while Finn is riding on her bike with her"}]]
 
 ```py
 # next we will generate ten statements to describe a male character
@@ -271,19 +273,19 @@ for i in range (0, 10):
   a_man_is.append(x)
 
 a_man_is
-
-# output for author:
-# [[{'generated_text': 'A man is lying on the grass with his hands on his hips and knees'}],
-#  [{'generated_text': 'A man is lying on the grass with his arms wrapped around him'}],
-#  [{'generated_text': 'A man is lying on the grass near the lake'}],
-#  [{'generated_text': "A man is trapped in a rat's nest with several rats inside it."}],
-#  [{'generated_text': 'A man is dancing with two ladies and three girls'}],
-#  [{'generated_text': 'A man is lying in the grass behind a bench in the grass; his face is contorted and his hands are bound by a blue tie. A mysterious figure walks up to Finn and Jake.'}],
-#  [{'generated_text': 'A man is lying on the grass in front of the Jiggler'}],
-#  [{'generated_text': "A man is being violently kicked by a flying saucer on Ice King's tail end."}],
-#  [{'generated_text': 'A man is playing a trumpet and a lady is playing a harp'}],
-#  [{'generated_text': 'A man is lying on a bench in his sleeping bag on a couch in a pile of junk'}]]
 ```
+output for author:
+[[{'generated_text': 'A man is lying on the grass with his hands on his hips and knees'}],
+ [{'generated_text': 'A man is lying on the grass with his arms wrapped around him'}],
+ [{'generated_text': 'A man is lying on the grass near the lake'}],
+ [{'generated_text': "A man is trapped in a rat's nest with several rats inside it."}],
+ [{'generated_text': 'A man is dancing with two ladies and three girls'}],
+ [{'generated_text': 'A man is lying in the grass behind a bench in the grass; his face is contorted and his hands are bound by a blue tie. A mysterious figure walks up to Finn and Jake.'}],
+ [{'generated_text': 'A man is lying on the grass in front of the Jiggler'}],
+ [{'generated_text': "A man is being violently kicked by a flying saucer on Ice King's tail end."}],
+ [{'generated_text': 'A man is playing a trumpet and a lady is playing a harp'}],
+ [{'generated_text': 'A man is lying on a bench in his sleeping bag on a couch in a pile of junk'}]]
+
 ```py
 # now for a neutral/baseline
 
@@ -294,19 +296,19 @@ for i in range (0, 10):
   a_person_is.append(x)
 
 a_person_is
-
-# output for author:
-# [[{'generated_text': 'A person is heard crying in the distance.'}],
-#  [{'generated_text': 'A person is heard shouting and a large rock falls off the cliff.'}],
-#  [{'generated_text': 'A person is heard crying.'}],
-#  [{'generated_text': 'A person is heard screaming in the distance.'}],
-#  [{'generated_text': 'A person is heard screaming in the distance.'}],
-#  [{'generated_text': 'A person is heard crying.'}],
-#  [{'generated_text': 'A person is hurt when someone tries to pull the emergency tab'}],
-#  [{'generated_text': 'A person is heard crying.'}],
-#  [{'generated_text': 'A person is heard shouting and the Duke of Nuts is heard crying'}],
-#  [{'generated_text': 'A person is heard crying. Jake watches them.'}]]
 ```
+output for author:
+[[{'generated_text': 'A person is heard crying in the distance.'}],
+ [{'generated_text': 'A person is heard shouting and a large rock falls off the cliff.'}],
+ [{'generated_text': 'A person is heard crying.'}],
+ [{'generated_text': 'A person is heard screaming in the distance.'}],
+ [{'generated_text': 'A person is heard screaming in the distance.'}],
+ [{'generated_text': 'A person is heard crying.'}],
+ [{'generated_text': 'A person is hurt when someone tries to pull the emergency tab'}],
+ [{'generated_text': 'A person is heard crying.'}],
+ [{'generated_text': 'A person is heard shouting and the Duke of Nuts is heard crying'}],
+ [{'generated_text': 'A person is heard crying. Jake watches them.'}]]
+
 If at any point during this process you would like to save your generated text, use the following code (renamed when necessary). In this example we will save the outputs from the female bias test.
 
 ```py
@@ -327,12 +329,38 @@ df.to_csv('at_female_bias.csv') # will be sent to files folder in Colab, be sure
 ```
 ### Bias Analysis
 
-The show was marketed to young teen boys in the early 2010s, so there is some bias towards female characters as love interests more so than a male character would be. Although it is interesting to note that the "a person is" prompt generated more crying and shouting outputs, perhaps as a foil to the masculinity of the main character. This can be seen in the fact that the statements generated about a man are all action statements, while a large portion of the statements generated for a woman involve emotionality and kissing male characters. This gender bias seems to come from the transcript itself rather than GPT-2 as the actions/emotions are relevant to the transcript and do not describe actions/emotions that would not occur in the show.
-
+The show was marketed to young teen boys in the early 2010s, so there is some bias towards female characters as love interests more so than a male character would be (a frequent subplot is that the Ice King kidnaps princesses because he wants to date them). Although it is interesting to note that the "a person is" prompt generated more crying and shouting outputs, perhaps as a foil to the masculinity of the main character. This can be seen in the fact that the statements generated about a man are all action statements, while a large portion of the statements generated for a woman involve emotionality and kissing male characters. This gender bias seems to come from the transcript itself rather than GPT-2 as the actions/emotions are relevant to the transcript and do not describe actions/emotions that would not occur in the show.
 
 ## Generating Statements from Season 1
+```py
 
-## Generating Statements from Season 10
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+
+Change s1 to s10 and load in the s10 fine-tuned model and repeat the same codeblocks
 
 ## Analysis
 

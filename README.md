@@ -1,7 +1,8 @@
 project title: A Case Study to Consider Transformers Models as a Tool for
 Character Analysis: Finn the Human from Adventure Time
 
-project description: The goal of this project is to explain and analyze
+# project description
+The goal of this project is to explain and analyze
 how a pre-trained, text-generation model like GPT-2 can be used as a
 supplemental tool for character analysis in literature or other media. In
 this case I will be creating two separate fine tuned models using the
@@ -18,7 +19,8 @@ expected. I will be testing if a fine-tuned model can reflect these
 character changes by comparing and contrasting generated text from the
 models fine-tuned on the first season and last season.
 
-rationale statement: It is only in recent years that scholarly research
+# rationale statement
+It is only in recent years that scholarly research
 has begun breaking down and analysing the entirety of Adventure Time. As
 an avid enjoyer of the series in an era where art and research are under
 threat by generative AI, I would like to analyze and critique the use of
@@ -33,14 +35,14 @@ the greater effectiveness (for research, efficiency, and energy use) of
 training and/or fine-tuning a hyper-specific model not intending to be
 “creatively” generative.
 
-workflow: I will be utilizing requests, transformers, pipelines, pandas,
+# workflow
+I will be utilizing requests, transformers, pipelines, pandas,
 BeautifulSoup4, lxml, re, and csv. Currently, my methods are to fine-tune
 GPT-2 via Hugging Face on the transcripts from the first and tenth season
 of the series. The transcripts were scrapped from the Adventure Time Wiki,
 a fan-made and sustained Wikipedia page with community content mostly
 under a CC-BY-SA license. Once fine-tuned, I will prompt each model with
-the starters “Finn”, “Finn’s emotions are”, “Finn’s emotions are not”,
-“Finn is/does”, “Finn is/does not”, and “Finn thinks”. I believe these
+the starters “Finn is/is not", “Finn’s emotions are/are not”, and “Finn thinks”. I believe these
 prompts, based on previous experimentation, will return results that
 highlight Finn’s character, decisions, and emotions. Before prompting, I
 will be conducting a bias check on the models by prompting “a woman is”,
