@@ -60,6 +60,7 @@ s1 = [
 
 ```py
 # format episode titles for use in url
+
 season_1 = []
 
 for i in s1:
@@ -85,7 +86,8 @@ for ep in season_1:
     transcript = soup.find_all('dd')
     for i in transcript:
         s1_transcript.append(i)
-        ```
+        
+```
 
 ```py
 
@@ -146,7 +148,7 @@ dataset = Dataset.from_pandas(df)
 ```py
 # tokens are characters, words, and/or phrases that AI models use to process and generate text
 # a basic workflow of tokens can be explained as:
-# 1. text is borken into tokens
+# 1. text is broken into tokens
 # 2. those tokens are received as inputs by the model and they are processed
 # 3. the model, when prompted, outputs tokens
 # 4. those tokens become text
