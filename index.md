@@ -12,7 +12,7 @@ _Adventure Time_ is an award winning cartoon series created by Pendleton Ward th
 
 ## Downloading the Transcript
 
-We need a dataset to fine-tune a pre-trained model. A dataset, in this case, is a file of sentences from which we will fine-tune the model. Fine-tuning is a process of further training a pre-trained model on a smaller dataset for use in specific tasks. Pre-trained models are available via [Hugging Face](https://huggingface.co/), a platform for those invested in machine learning to share and collaborate on models, datasets, and applications. The models available on the site can be utilized by users without downloading the full model on your personal device. Your fine-tuned model can be saved and utilized locally without further dependance on Hugging Face.
+We need a **dataset** to fine-tune a pre-trained model. A **dataset**, in this case, is a file of sentences from which we will **fine-tune** the model. **Fine-tuning** is a process of further training a **pre-trained model** on a smaller dataset for use in specific tasks. **Pre-trained models** are available via [Hugging Face](https://huggingface.co/), a platform for those invested in machine learning to share and collaborate on models, datasets, and applications. The models available on the site can be utilized by users without downloading the full model on your personal device. Your fine-tuned model can be saved and utilized locally without further dependance on Hugging Face.
 
 We will use the BeautifulSoup library to scrape the transcripts from the [_Adventure Time_ Wiki](navigate to https://adventuretime.fandom.com/wiki/Season_1), use loops to clean, then save the data as individual sentences in a csv file.
 
@@ -393,7 +393,7 @@ df = pd.DataFrame({
 
 df.to_csv('at_s1_outputs_all .csv') # this will go into the folders file in Colab, be sure to download
 ```
-Repeat the process for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of the outputs for season 1 and seasonn 10 in a spreadsheet to allow for easier comparison of outputs.
+Repeat the process for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of the atuhor's outputs for season 1 and season 10 in a spreadsheet to allow for easier comparison of outputs.
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR9TKtvDq60miHuSPNnhqk9BjLh8qEelm-RYTUsn5QZSJJWBzRT6GvFFqoZrllVNbxTLaLkQT8r9Epm/pubhtml?widget=true&amp;headers=false" height="600px" width="650px" ></iframe>
 
@@ -406,3 +406,9 @@ Repeat the process for season 10 being sure to save the model (named appropriate
 ## Positionality Statement 
 
 The author is anti-generative-AI and supports the use of specificly trained models as a research tool, but only in the hands of persons who have educated themselves on the ethics of AI use. The models created in this research are not intended or developped to be used as "creative AI" to generate a transcript. Instead, the two models created, one trained on the first season transcript and the second on the tenth season transcript, are meant to be used as a text analysis tool to anilyse themes in the characters, plot, and world of Adventure Time.
+
+> website created as a final project for INFO 664 Programming for Culteral Heritage 
+> with Pratt's School of Information
+> taught by Prof. Filipa Calado
+
+Any comments, questions, for concerns, please reach out to the author, Jace Steiner, at [esteienr@pratt.edu](esteiner@pratt.edu)
