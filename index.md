@@ -407,8 +407,7 @@ Repeat the process for season 10 being sure to save the model (named appropriate
 
 The author is anti-generative-AI and supports the use of specificly trained models as a research tool, but only in the hands of persons who have educated themselves on the ethics of AI use. The models created in this research are not intended or developped to be used as "creative AI" to generate a transcript. Instead, the two models created, one trained on the first season transcript and the second on the tenth season transcript, are meant to be used as a text analysis tool to anilyse themes in the characters, plot, and world of Adventure Time.
 
-> website created as a final project for INFO 664 Programming for Culteral Heritage 
-> with Pratt's School of Information
-> taught by Prof. Filipa Calado
+> website created as a final project for [INFO 664 Programming for Culteral Heritage](https://gofilipa.github.io/664/intro.html) with Pratt's School of Information
+> taught by Prof. Filipa Calado, who's teaching and research heavily infleunced this website
 
-Any comments, questions, for concerns, please reach out to the author, Jace Steiner, at [esteienr@pratt.edu](esteiner@pratt.edu)
+Any comments, questions, for concerns, please reach out to the author, Jace Steiner, at [esteiner@pratt.edu](esteiner@pratt.edu)
