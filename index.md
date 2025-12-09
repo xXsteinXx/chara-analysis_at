@@ -10,7 +10,6 @@ The goal of this site is to create, explain, and analyze how a pre-trained, text
 
 _Adventure Time_ is an award winning cartoon series created by Pendleton Ward that began airing in 2010 and wrapped its first series in 2018 (there are several spin-offs and mini-series). The show follows the adventures of Finn the Human and Jake the Dog, adoptive brothers who serve as the de-facto knights of the magical Land of Ooo. Finn is 12 years old, black-and-white thinking, violence seeking, and, as far as we know, the only living human in the first season. By the end of season 10, the last season of the series, Finn is 17, wisened, uses violence as a last resort, and has survived depression, break-ups, an absent father, and a Lich. The first season is full of juvenile jokes and pre-pubescent themes (Finn blushes around the older-than-him princess and enjoys punching bad guys and monsters). While there is no lack of silly jokes and scenarios in the final seasons, the show incorporates themes of maturation, sexuality, and existentialism that a casual viewer of the first season would have never expected.
 
-
 ## Downloading the Transcript
 
 We need a dataset to fine-tune a pre-trained model. A dataset, in this case, is a file of sentences from which we will fine-tune the model. Fine-tuning is a process of further training a pre-trained model on a smaller dataset for use in specific tasks. Pre-trained models are available via [Hugging Face](https://huggingface.co/), a platform for those invested in machine learning to share and collaborate on models, datasets, and applications. The models available on the site can be utilized by users without downloading the full model on your personal device. Your fine-tuned model can be saved and utilized locally without further dependance on Hugging Face.
@@ -331,7 +330,7 @@ df = pd.DataFrame({
 
 df.to_csv('at_female_bias.csv') # will be sent to files folder in Colab, be sure to download
 ```
-### Bias Analysis
+## Bias Analysis
 
 The show was marketed to young teen boys in the early 2010s, so there is some bias towards female characters as love interests more so than a male character would be (a frequent subplot is that the Ice King kidnaps princesses because he wants to date them). Although it is interesting to note that the "a person is" prompt generated more crying and shouting outputs, perhaps as a foil to the masculinity of the main character. This can be seen in the fact that the statements generated about a man are all action statements, while a large portion of the statements generated for a woman involve emotionality and kissing male characters. This gender bias seems to come from the transcript itself rather than GPT-2 as the actions/emotions are relevant to the transcript and do not describe actions/emotions that would not occur in the show.
 
@@ -396,7 +395,7 @@ df.to_csv('at_s1_outputs_all .csv') # this will go into the folders file in Cola
 ```
 Repeat the process for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of the outputs for season 1 and seasonn 10 in a spreadsheet to allow for easier comparison of outputs.
 
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR9TKtvDq60miHuSPNnhqk9BjLh8qEelm-RYTUsn5QZSJJWBzRT6GvFFqoZrllVNbxTLaLkQT8r9Epm/pubhtml?widget=true&amp;headers=false" height="600px" width="550px" ></iframe>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR9TKtvDq60miHuSPNnhqk9BjLh8qEelm-RYTUsn5QZSJJWBzRT6GvFFqoZrllVNbxTLaLkQT8r9Epm/pubhtml?widget=true&amp;headers=false" height="600px" width="650px" ></iframe>
 
 ## Analysis
 
