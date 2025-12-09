@@ -394,7 +394,9 @@ df = pd.DataFrame({
 
 df.to_csv('at_s1_outputs_all .csv') # this will go into the folders file in Colab, be sure to download
 ```
-Repeat the process for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an impbedding of the outputs for season 1 and seasonn 10 in a spreadsheet to allow for easier comparison of outputs.
+Repeat the process for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of the outputs for season 1 and seasonn 10 in a spreadsheet to allow for easier comparison of outputs.
+
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR9TKtvDq60miHuSPNnhqk9BjLh8qEelm-RYTUsn5QZSJJWBzRT6GvFFqoZrllVNbxTLaLkQT8r9Epm/pubhtml?widget=true&amp;headers=false"></iframe>
 
 ## Analysis
 
