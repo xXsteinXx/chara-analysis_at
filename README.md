@@ -1,7 +1,7 @@
-project title: A Case Study to Consider Transformers Models as a Tool for
-Character Analysis: Finn the Human from Adventure Time
+# Considering Transformers Models as a Tool for Character Analysis with Finn the Human
+### a guide for beginners and familiars in using a use-case specific, fine-tuned, pre-trained large language model
 
-# project description
+## project description
 The goal of this project is to explain and analyze
 how a pre-trained, text-generation model like GPT-2 can be used as a
 supplemental tool for character analysis in literature or other media. In
@@ -19,7 +19,7 @@ expected. I will be testing if a fine-tuned model can reflect these
 character changes by comparing and contrasting generated text from the
 models fine-tuned on the first season and last season.
 
-# rationale statement
+## rationale statement
 It is only in recent years that scholarly research
 has begun breaking down and analysing the entirety of Adventure Time. As
 an avid enjoyer of the series in an era where art and research are under
@@ -35,7 +35,7 @@ the greater effectiveness (for research, efficiency, and energy use) of
 training and/or fine-tuning a hyper-specific model not intending to be
 “creatively” generative.
 
-# workflow
+## workflow
 I will be utilizing requests, transformers, pipelines, pandas,
 BeautifulSoup4, lxml, re, and csv. Currently, my methods are to fine-tune
 GPT-2 via Hugging Face on the transcripts from the first and tenth season
@@ -71,4 +71,18 @@ would also like to make an environmental impact statement, but am unsure
 how to measure the energy consumption of my testing. More research needs
 to be done before I can make any illuminating statement (perhaps a later
 expansion for this project).
+
+## files list: 
+
+This guide/website explains how to create each of the following files yourself, but for accessibility/flexibitliy, you may suplement parts of the work with the follow files (such as loading in the model instead of creating them yourself)
+
+* **at_s1_model** = folder, fine-tuned transformers model (GPT-2) on the transcript of the first season of Adventure Time
+* **at_s10_model** = folder, fine-tuned transformers model (GPT-2) on the transcript of the tenth season of Adventure Time
+* **at_s1_text.csv** = csv of dialogue and stage directions (separated by sentence/direction) from the transcript of the first season of Adventure Time
+* **at_s10_text.csv** = csv of dialogue and stage directions (separated by sentence/direction) from the transcript of the tenth season of Adventure Time
+* **at_train.py** = code to fine-tune transformers model on selected csv
+* **at_analysis.py** = code to import created models with prompts
+* **at_s1_outputs_all.csv** = csv file containing all generated text from each prompt from the model fine-tuned with season 1
+* **at_s10_outputs_all.csv** = csv file containing all generated text from each prompt from the model fined-tuned with season 10
+* **Transformers_Finn_Analysis.xlsx** = color coded excel sheet containing s1 and s10 outputs side-by-side for easier analysis
 
