@@ -269,7 +269,7 @@ output for author:
  [{'generated_text': 'A woman is seen crying from the bottom of a pyramid'}],
 
  [{'generated_text': 'A woman is thrown in the air, face-down on her hind legs'}],
- 
+
  [{'generated_text': "A woman is gripping Finn's arms while Finn is riding on her bike with her"}]]
 
 ```py
@@ -359,41 +359,67 @@ df.to_csv('at_female_bias.csv') # will be sent to files folder in Colab, be sure
 The show was marketed to young teen boys in the early 2010s, so there is some bias towards female characters as love interests more so than a male character would be (a frequent subplot is that the Ice King kidnaps princesses because he wants to date them). Although it is interesting to note that the "a person is" prompt generated more crying and shouting outputs, perhaps as a foil to the masculinity of the main character. This can be seen in the fact that the statements generated about a man are all action statements, while a large portion of the statements generated for a woman involve emotionality and kissing male characters. This gender bias seems to come from the transcript itself rather than GPT-2 as the actions/emotions are relevant to the transcript and do not describe actions/emotions that would not occur in the show.
 
 ## Generating Statements from Season 1
-```py
+Like we performed in the bias test, the character analysis prompts will all be the beginings of descriptive sentences. We will avoid the prompt "Finn says" as that occurs too many times within the dataset to avoid having overfit outputs (outputs the same or nearly the same as an input).
 
+```py
+import pandas as pd
+
+Finn_is = []
+
+for i in range (0, 10):
+  x = pipe('Finn is')
+  Finn_is.append(x)
 ```
 ```py
+Finn_is_not = []
 
+for i in range (0, 10):
+  x = pipe('Finn is not')
+  Finn_is_not.append(x)
+```
+
+```py
+Finn_thinks = []
+
+for i in range (0, 10):
+  x = pipe('Finn thinks')
+  Finn_thinks.append(x)
 ```
 ```py
+Finn_does_not_think = []
 
+for i in range (0, 10):
+  x = pipe('Finn does not think')
+  Finn_does_not_think.append(x)
+```
+
+```py
+Finns_emotions_are = []
+
+for i in range (0, 10):
+  x = pipe(f"Finn's emotions are") #f string to allow use of apostrophe
+  Finns_emotions_are.append(x)
 ```
 ```py
+Finns_emotions_are_not = []
 
+for i in range (0, 10):
+  x = pipe(f"Finn's emotions are not") #f string to allow use of apostrophe
+  Finns_emotions_are_not.append(x)
 ```
 ```py
+# now we will combine all outputs into a single dataframe and save that as a csv
+at_s1_outputs_all = female_bias + male_bias + person_bias + Finn_is + Finn_is_not + Finn_thinks + Finn_does_not_think + Finns_emotions_are + Finns_emotions_are_not
 
+df = pd.DataFrame({
+    'generated text' : at_s1_outputs_all ,
+})
+
+df.to_csv('at_s1_outputs_all .csv') # this will go into the folders file in Colab, be sure to download
 ```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-
-Change s1 to s10 and load in the s10 fine-tuned model and repeat the same codeblocks
+Repeat the process for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an impbedding of the outputs for season 1 and seasonn 10 in a spreadsheet to allow for easier comparison of outputs.
 
 ## Analysis
-
-```py
-# python code goes here
-```
 
 ## Discussion
 
