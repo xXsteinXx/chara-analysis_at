@@ -2,15 +2,15 @@
 layout: default
 ---
 
-## Introduction
+# Introduction
 
 The goal of this site is to create, explain, and analyze how a pre-trained, text-generation model like GPT-2 can be used as a supplemental tool for character analysis in literature or other media. In this case, creating two separate fine-tuned models using the first and last season’s transcripts of the Cartoon Network series, _Adventure Time_. Each fine-tuned model will be prompted with the same prompts to compare and contrast the characterization of the main character of the series, Finn the Human, from the first vs. last season. The goal is to showcase possible small use cases for text-generative AI, while critiquing the models, training, and use of gen-AI as a whole. This work is not a way to make a “creative” generative AI. This a small, specific use case and would serve poorly as the main tool of character analysis.
 
-## What is Adventure Time
+# What is Adventure Time
 
 _Adventure Time_ is an award winning cartoon series created by Pendleton Ward that began airing in 2010 and wrapped its first series in 2018 (there are several spin-offs and mini-series). The show follows the adventures of Finn the Human and Jake the Dog, adoptive brothers who serve as the de-facto knights of the magical Land of Ooo. In the first season, Finn is 12 years old, black-and-white thinking, violence seeking, and, as far as we know, the only living human in the first season. By the end of season 10, the last season of the series, Finn is 17, wisened, resorts to communication over violence, and has survived depression, break-ups, an absent father, and a Lich. The first season is full of juvenile jokes and pre-pubescent themes (Finn blushes around the older-than-him princess and enjoys punching bad guys and monsters). While there is no lack of silly jokes and scenarios in the final seasons, the show incorporates themes of maturation, sexuality, and existentialism that a casual viewer of the first season would have never expected.
 
-## Downloading the Transcript
+# Downloading the Transcript
 
 We need a **dataset** to fine-tune a pre-trained model. A **dataset**, in this case, is a file of sentences from which we will **fine-tune** the model. **Fine-tuning** is a process of further training a **pre-trained model** on a smaller dataset for use in specific tasks. **Pre-trained models** are available via [Hugging Face](https://huggingface.co/), a platform for those invested in machine learning to share and collaborate on models, datasets, and applications. The models available on the site can be utilized by users without downloading the full model on your personal device. Your fine-tuned model can be saved and utilized locally without further dependance on Hugging Face.
 
@@ -119,7 +119,7 @@ df.to_csv('at_s1_text.csv')
 
 ```
 
-## Fine-tuning the Model
+# Fine-tuning the Model
 
 The model used in this section is a fine-tuning of the [pretrained GPT-2 model](https://huggingface.co/openai-community/gpt2) and that can be further understood by the [model card](https://github.com/openai/gpt-2/blob/master/model_card.md).
 
@@ -195,7 +195,7 @@ trainer.tokenizer.save_pretrained("models")
 ```
 The model has been trained! Be sure to save the folder containing the model (and rename to your preference) to your local device as soon as it's available.
 
-## Loading in the Model
+# Loading in the Model
 
 This can be done in the same session as fine-tuning, but let's assume we are starting a new session just in case.
 
@@ -229,7 +229,7 @@ pipe("I love") # has generated "I love you, Finn." for the author multiple times
 ```
 Now we can start prompting for real.
 
-## Bias Test
+# Bias Test
 
 The GPT-2 model card states:
 
@@ -334,7 +334,7 @@ df.to_csv('at_female_bias.csv') # will be sent to files folder in Colab, be sure
 
 The show was marketed to young teen boys in the early 2010s, so there is some bias towards female characters as love interests more so than a male character would be (a frequent subplot is that the Ice King kidnaps princesses because he wants to date them). Although it is interesting to note that the "a person is" prompt generated more crying and shouting outputs. This is perhaps to create foils out of neutral characters for the masculinity of the main character. This can be seen in the fact that the statements generated about a man are all action statements, while a large portion of the statements generated for a woman involve emotionality and kissing male characters. This gender bias seems to come from the transcript itself rather than GPT-2 as the actions/emotions are relevant to the transcript and do not describe actions/emotions that would not occur in the show. There will be further analysis, including comparison to the 10th season outputs, near the end of this page. The rest of the outputs generated for the author are compilled in a spreadsheet shared before the anlysis.
 
-## Generating Statements from Season 1
+# Generating Statements
 Like we performed in the bias test, the character analysis prompts will all be the beginings of descriptive sentences. We will avoid the prompt "Finn says" as that occurs too many times within the dataset to avoid having overfit outputs (outputs the same or nearly the same as an input).
 
 ```py
@@ -397,7 +397,8 @@ Repeat the process, starting from fine-tuning, for season 10 being sure to save 
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR9TKtvDq60miHuSPNnhqk9BjLh8qEelm-RYTUsn5QZSJJWBzRT6GvFFqoZrllVNbxTLaLkQT8r9Epm/pubhtml?widget=true&amp;headers=false" height="600px" width="650px" ></iframe>
 
-## Analysis
+
+# Analysis
 
 Now that we’ve generated 10 sentences for several of the same prompts using the model fine-tuned on the first season and the last season of _Adventure Time_, we can compare what the statements are saying in each prompt. Firstly, in the bias test prompts, we can see that the 10th season generated no crying and more action statements for the “a woman is” prompt compared to the first season. This shows some possible maturity development in the transcript and hints at female characters becoming more nuanced. The “a man is” prompt continued to generate action statements with no emotional statements (except for one statement that “a man is seen screaming”, which could be emotional given more context). The “a person is” statements also now fully omit any hint of emotionality. Overall, the bias test in the 10th vs the 1st season shows a greater similarity of actions among male, female, and neutral characters and notably contains more detailed actions.
 However, it is lacking in emotional statements. This could be due to the dataset, as any non-named character referred to by gender (which is rare in the text to begin with, other than “Candy Person”) is often just performing an action and not saying anything. The lack of emotionality also highlights and lack of context this text-generation tool is able to provide. Why would a man be screaming? Why would a woman be cheering? Why is a person running away?
