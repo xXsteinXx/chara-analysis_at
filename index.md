@@ -4,7 +4,9 @@ layout: default
 
 # Introduction
 
-The goal of this site is to create, explain, and analyze how a pre-trained, text-generation model like GPT-2 can be used as a supplemental tool for character analysis in literature or other media. In this case, creating two separate fine-tuned models using the first and last season’s transcripts of the Cartoon Network series, _Adventure Time_. Each fine-tuned model will be prompted with the same prompts to compare and contrast the characterization of the main character of the series, Finn the Human, from the first vs. last season. The goal is to showcase possible small use cases for text-generative AI, while critiquing the models, training, and use of gen-AI as a whole. This work is not a way to make a “creative” generative AI. This a small, specific use case and would serve poorly as the main tool of character analysis.
+The goal of this site is to create, explain, and analyze how a pre-trained, text-generation model like GPT-2 can be used as a supplemental tool for character analysis in literature or other media. In this case, creating two separate fine-tuned models using the first and last season’s transcripts of the Cartoon Network series, _Adventure Time_. Each fine-tuned model will be prompted with the same prompts to compare and contrast the characterization of the main character of the series, Finn the Human, from the first vs. last season. The goal is to showcase possible small use cases for text-generative AI, while critiquing the models, training, and use of gen-AI as a whole. This work is not a way to make a “creative” generative AI. This a small, specific use case and would serve poorly as the main tool of character analysis. For further research into the merits of specifically trained models vs bigger-is-better training methods, see [Varoquaux et. al](https://dl.acm.org/doi/10.1145/3715275.3732006).
+
+All generated files, including models, datasets, and outputs, are available [here](https://github.com/xXsteinXx/chara-analysis_at/tree/master/author_files).
 
 # What is Adventure Time
 
@@ -354,23 +356,6 @@ df = pd.DataFrame({
 df.to_csv('at_person_bias.csv')
  ```
 
-If at any point during this process you would like to save your generated text, use the following code (renamed when necessary). In this example we will save the outputs from the female bias test.
-
-```py
-# join outputs for each prompt into one list and save to csv
-import pandas as pd
-
-female_bias = [] # create empty list
-
-for i in a_woman_is: # refer to list to outputs you would like to save
-    out = i[0]['generated_text']
-    female_bias.append(out)
-
-df = pd.DataFrame({
-    'generated text' : female_bias,
-})
-
-df.to_csv('at_female_bias.csv') # will be sent to files folder in Colab, be sure to download
 ```
 ## Bias Analysis
 
@@ -533,12 +518,12 @@ Starting from fine-tuning, for season 10, being sure to save the model (named ap
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR9TKtvDq60miHuSPNnhqk9BjLh8qEelm-RYTUsn5QZSJJWBzRT6GvFFqoZrllVNbxTLaLkQT8r9Epm/pubhtml?widget=true&amp;headers=false" height="600px" width="650px" ></iframe>
 
-
+# 
 # Analysis
 
 ## Bias
 
-Now that we’ve generated 10 sentences for several of the same prompts using the model fine-tuned on the first season and the last season of _Adventure Time_, we can compare what the statements are saying in each prompt. Firstly, in the bias test prompts, we can see that the 10th season generated no crying and more action statements for the “a woman is” prompt compared to the first season. This shows some possible maturity development in the transcript and hints at female characters becoming more nuanced. The “a man is” prompt continued to generate action statements with no emotional statements (except for one statement that “a man is seen screaming”, which could be emotional given more context). The “a person is” statements also now fully omit any hint of emotionality. Overall, the bias test in the 10th vs the 1st season shows a greater similarity of actions among male, female, and neutral characters and notably contains more detailed actions. 
+Now that we’ve generated 10 sentences for several of the same prompts using the model fine-tuned on the first season and the last season of _Adventure Time_, we can compare what the statements are saying in each prompt. Firstly, in the bias test prompts, we can see that the 10th season generated no crying and more action statements for the “a woman is” prompt compared to the first season. This shows some possible maturity of the transcript and hints at female characters becoming more nuanced. The “a man is” prompt continued to generate action statements with no emotional statements (except for one statement that “a man is seen screaming”, which could be emotional given more context). The “a person is” statements also now fully omit any hint of emotionality. Overall, the bias test in the 10th vs the 1st season shows a greater similarity of actions among male, female, and neutral characters and notably contains more detailed actions. 
 
 However, it is lacking in emotional statements. This could be due to the dataset, as any non-named character referred to by gender (which is rare in the text to begin with, other than “Candy Person”) is often just performing an action and not saying anything. The lack of emotionality also highlights a lack of context this text-generation tool is able to provide. Why would a man be screaming? Why would a woman be cheering? Why is a person running away? The outputs are too vague to complete an in-depth analysis of bias.
 
@@ -550,14 +535,13 @@ The “Finn is not” prompt for the 10th season curiously returned several “F
 
 The “Finn does not think” prompt had the most notable change between season 1 and 10. The prompt was repetitive and vague in the first season, but in the 10th the outputs are much more verbose. We go from “Finn does not think so” to “Finn does not think Jake will understand the significance of his birthday present”. This is much more revealing of Finn’s depth as a character, hinting at internal thought processes that consider the thoughts of another character. The outputs in the 10th season for this prompt paint a character who is much more in touch with himself, the people around him, and how his thoughts and actions affect each other.
 
-This kind of output difference, highlighting Finn’s character growth, is what I would have expected from the “Finn’s emotions are/are not” prompt”, but we seemed to have gotten the opposite.
-
 ## Conclusion
 
-While there are certainly illuminating comparisons to make between the two model’s outputs
+While there are certainly illuminating comparisons to make between the two model’s outputs, they would need to be evaluated and used by someone already familiar with the series to gain any insight into Finn's development as a character. The transcript does include subtle animation of the character, such as his facial expression, music, or tone of voice - all of which would paint a clearler picture of the emotions, thoughts, and struggles Finn experiences. This same method may perform better for a fully textual piece of media, but one should be careful and respectful of an authors intellectual and creative property. Works from the public domain are fair game, such as those found in [Project Gutenberg](https://www.gutenberg.org/). 
+
 
 ## Positionality Statement
-The author is anti-generative-AI and supports the use of specifically trained models as a research tool, but only in the hands of persons who have educated themselves on the ethics of AI use. The models created in this research are not intended or developed to be used as “creative AI” to generate a transcript. Instead, the two models created, one trained on the first season transcript and the second on the tenth season transcript, are meant to be used as a text analysis tool to analyze themes in the characters, plot, and world of Adventure Time.
+The author is against the commercialization of generative-AI and supports the use of specifically trained models as a research tool, but only in the hands of persons who have educated themselves on the ethics of AI use. The models created in this research are not intended or developed to be used as “creative AI” to generate a transcript. Instead, the two models created, one trained on the first season transcript and the second on the tenth season transcript, are meant to be used as a text analysis tool to analyze themes in the characters, plot, and world of _Adventure Time_.
 
 
 > website created as a final project for [INFO 664 Programming for Culteral Heritage](https://gofilipa.github.io/664/intro.html), taught by Prof. Filipa Calado, who's teaching and research heavily influenced this website, with Pratt's School of Information
