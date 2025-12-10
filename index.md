@@ -8,13 +8,13 @@ The goal of this site is to create, explain, and analyze how a pre-trained, text
 
 ## What is Adventure Time
 
-_Adventure Time_ is an award winning cartoon series created by Pendleton Ward that began airing in 2010 and wrapped its first series in 2018 (there are several spin-offs and mini-series). The show follows the adventures of Finn the Human and Jake the Dog, adoptive brothers who serve as the de-facto knights of the magical Land of Ooo. Finn is 12 years old, black-and-white thinking, violence seeking, and, as far as we know, the only living human in the first season. By the end of season 10, the last season of the series, Finn is 17, wisened, uses violence as a last resort, and has survived depression, break-ups, an absent father, and a Lich. The first season is full of juvenile jokes and pre-pubescent themes (Finn blushes around the older-than-him princess and enjoys punching bad guys and monsters). While there is no lack of silly jokes and scenarios in the final seasons, the show incorporates themes of maturation, sexuality, and existentialism that a casual viewer of the first season would have never expected.
+_Adventure Time_ is an award winning cartoon series created by Pendleton Ward that began airing in 2010 and wrapped its first series in 2018 (there are several spin-offs and mini-series). The show follows the adventures of Finn the Human and Jake the Dog, adoptive brothers who serve as the de-facto knights of the magical Land of Ooo. In the first season, Finn is 12 years old, black-and-white thinking, violence seeking, and, as far as we know, the only living human in the first season. By the end of season 10, the last season of the series, Finn is 17, wisened, resorts to communication over violence, and has survived depression, break-ups, an absent father, and a Lich. The first season is full of juvenile jokes and pre-pubescent themes (Finn blushes around the older-than-him princess and enjoys punching bad guys and monsters). While there is no lack of silly jokes and scenarios in the final seasons, the show incorporates themes of maturation, sexuality, and existentialism that a casual viewer of the first season would have never expected.
 
 ## Downloading the Transcript
 
 We need a **dataset** to fine-tune a pre-trained model. A **dataset**, in this case, is a file of sentences from which we will **fine-tune** the model. **Fine-tuning** is a process of further training a **pre-trained model** on a smaller dataset for use in specific tasks. **Pre-trained models** are available via [Hugging Face](https://huggingface.co/), a platform for those invested in machine learning to share and collaborate on models, datasets, and applications. The models available on the site can be utilized by users without downloading the full model on your personal device. Your fine-tuned model can be saved and utilized locally without further dependance on Hugging Face.
 
-We will use the BeautifulSoup library to scrape the transcripts from the [_Adventure Time_ Wiki](navigate to https://adventuretime.fandom.com/wiki/Season_1), use loops to clean, then save the data as individual sentences in a csv file.
+We will use the [BeautifulSoup library](https://beautiful-soup-4.readthedocs.io/en/latest/) to scrape the transcripts from the [_Adventure Time_ Wiki](navigate to https://adventuretime.fandom.com/wiki/Season_1), use loops to clean, then save the data as individual sentences in a csv file.
 
 ```py
 # libraries to load in
@@ -393,7 +393,7 @@ df = pd.DataFrame({
 
 df.to_csv('at_s1_outputs_all .csv') # this will go into the folders file in Colab, be sure to download
 ```
-Repeat the process for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of the atuhor's outputs for season 1 and season 10 in a spreadsheet to allow for easier comparison of outputs.
+Repeat the process, starting from fine-tuning, for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of the atuhor's outputs for season 1 and season 10 in a spreadsheet to allow for easier comparison of outputs.
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR9TKtvDq60miHuSPNnhqk9BjLh8qEelm-RYTUsn5QZSJJWBzRT6GvFFqoZrllVNbxTLaLkQT8r9Epm/pubhtml?widget=true&amp;headers=false" height="600px" width="650px" ></iframe>
 
@@ -407,8 +407,6 @@ Repeat the process for season 10 being sure to save the model (named appropriate
 
 The author is anti-generative-AI and supports the use of specificly trained models as a research tool, but only in the hands of persons who have educated themselves on the ethics of AI use. The models created in this research are not intended or developped to be used as "creative AI" to generate a transcript. Instead, the two models created, one trained on the first season transcript and the second on the tenth season transcript, are meant to be used as a text analysis tool to anilyse themes in the characters, plot, and world of Adventure Time.
 
-> website created as a final project for [INFO 664 Programming for Culteral Heritage](https://gofilipa.github.io/664/intro.html) with Pratt's School of Information
->
-> taught by Prof. Filipa Calado, who's teaching and research heavily infleunced this website
+> website created as a final project for [INFO 664 Programming for Culteral Heritage](https://gofilipa.github.io/664/intro.html), taught by Prof. Filipa Calado, who's teaching and research heavily influenced this website, with Pratt's School of Information
 
-Any comments, questions, for concerns, please reach out to the author, Jace Steiner, at [esteiner@pratt.edu](esteiner@pratt.edu)
+Any comments, questions, for concerns, please reach out to the author, Jace Steiner, at [esteiner@pratt.edu](mailto:esteiner@pratt.edu)
