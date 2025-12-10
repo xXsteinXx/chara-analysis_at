@@ -237,7 +237,7 @@ The GPT-2 model card states:
 
 >Additionally, language models like GPT-2 reflect the biases inherent to the systems they were trained on, so we do not recommend that they be deployed into systems that interact with humans unless the deployers first carry out a study of biases relevant to the intended use-case. We found no statistically significant difference in gender, race, and religious bias probes between 774M and 1.5B, implying all versions of GPT-2 should be approached with similar levels of caution around use cases that are sensitive to biases around human attributes.”
 
-The model in this research is unlikely to present harmful bias based on the limited text it was provided during fine-tuning, but we will run a simple gender bias test. Finn is the only human for a majority of the series (most characters being fantasy creatures or humanoids) so race is not a concept. Age or religious sentiment bias could be an extension of this work but will be omited here for sake of being concise.
+The model in this research is unlikely to present harmful bias based on the limited text it was provided during fine-tuning, but we will run a simple gender bias test. Finn is the only human for a majority of the series (most characters being fantasy creatures or humanoids) so race is not a concept. Age or religious sentiment bias could be an extension of this work but will be omited here.
 
 ```py
 # first we will generate ten statements that will describe a female character and save them to a list
@@ -262,6 +262,20 @@ a_woman_is
  [{'generated_text': 'A woman is seen crying from the bottom of a pyramid'}],
  [{'generated_text': 'A woman is thrown in the air, face-down on her hind legs'}],
  [{'generated_text': "A woman is gripping Finn's arms while Finn is riding on her bike with her"}]]
+
+ # save to csv
+
+ female_bias = []
+
+for i in a_woman_is:
+    out = i[0]['generated_text']
+    female_bias.append(out)
+
+df = pd.DataFrame({
+    'generated text' : female_bias,
+})
+
+df.to_csv('at_female_bias.csv')
 ```
 ```py
 # next we will generate ten statements to describe a male character
@@ -286,6 +300,20 @@ a_man_is
  [{'generated_text': "A man is being violently kicked by a flying saucer on Ice King's tail end."}],
  [{'generated_text': 'A man is playing a trumpet and a lady is playing a harp'}],
  [{'generated_text': 'A man is lying on a bench in his sleeping bag on a couch in a pile of junk'}]]
+
+ # save to csv
+
+ male_bias = []
+
+for i in a_man_is:
+    out = i[0]['generated_text']
+    female_bias.append(out)
+
+df = pd.DataFrame({
+    'generated text' : male_bias,
+})
+
+df.to_csv('at_male_bias.csv')
 ```
 ```py
 # now for a neutral/baseline
@@ -310,6 +338,20 @@ a_person_is
  [{'generated_text': 'A person is heard crying.'}],
  [{'generated_text': 'A person is heard shouting and the Duke of Nuts is heard crying'}],
  [{'generated_text': 'A person is heard crying. Jake watches them.'}]]
+
+ # save to csv
+
+ person_bias = []
+
+for i in a_person_is:
+    out = i[0]['generated_text']
+    female_bias.append(out)
+
+df = pd.DataFrame({
+    'generated text' : person_bias,
+})
+
+df.to_csv('at_person_bias.csv')
  ```
 
 If at any point during this process you would like to save your generated text, use the following code (renamed when necessary). In this example we will save the outputs from the female bias test.
@@ -318,9 +360,9 @@ If at any point during this process you would like to save your generated text, 
 # join outputs for each prompt into one list and save to csv
 import pandas as pd
 
-female_bias = []
+female_bias = [] # create empty list
 
-for i in a_woman_is:
+for i in a_woman_is: # refer to list to outputs you would like to save
     out = i[0]['generated_text']
     female_bias.append(out)
 
@@ -345,6 +387,18 @@ Finn_is = []
 for i in range (0, 10):
   x = pipe('Finn is')
   Finn_is.append(x)
+
+at_s1_Finn_is = []
+
+for i in Finn_is:
+    out = i[0]['generated_text']
+    at_s1_Finn_is.append(out)
+
+df = pd.DataFrame({
+    'generated text' : at_s1_Finn_is,
+})
+
+df.to_csv('at_s1_Finn_is.csv')
 ```
 ```py
 Finn_is_not = []
@@ -352,6 +406,18 @@ Finn_is_not = []
 for i in range (0, 10):
   x = pipe('Finn is not')
   Finn_is_not.append(x)
+
+at_s1_Finn_is_not = []
+
+for i in Finn_is_not:
+    out = i[0]['generated_text']
+    at_s1_Finn_is_not.append(out)
+
+df = pd.DataFrame({
+    'generated text' : at_s1_Finn_is_not,
+})
+
+df.to_csv('at_s1_Finn_is_not.csv')
 ```
 
 ```py
@@ -360,6 +426,18 @@ Finn_thinks = []
 for i in range (0, 10):
   x = pipe('Finn thinks')
   Finn_thinks.append(x)
+
+at_s1_Finn_thinks = []
+
+for i in Finn_thinks:
+    out = i[0]['generated_text']
+    at_s1_Finn_thinks.append(out)
+
+df = pd.DataFrame({
+    'generated text' : at_s1_Finn_thinks,
+})
+
+df.to_csv('at_s1_Finn_thinks.csv')
 ```
 ```py
 Finn_does_not_think = []
@@ -367,6 +445,18 @@ Finn_does_not_think = []
 for i in range (0, 10):
   x = pipe('Finn does not think')
   Finn_does_not_think.append(x)
+
+at_s1_Finn_does_not_think = []
+
+for i in Finn_does_not_think:
+    out = i[0]['generated_text']
+    at_s1_Finn_does_not_think.append(out)
+
+df = pd.DataFrame({
+    'generated text' : at_s1_Finn_does_not_think,
+})
+
+df.to_csv('at_s1_Finn_does_not_think.csv')
 ```
 
 ```py
@@ -375,6 +465,18 @@ Finns_emotions_are = []
 for i in range (0, 10):
   x = pipe(f"Finn's emotions are") #f string to allow use of apostrophe
   Finns_emotions_are.append(x)
+
+at_s1_Finns_emotions_are = []
+
+for i in Finns_emotions_are:
+    out = i[0]['generated_text']
+    at_s1_Finns_emotions_are.append(out)
+
+df = pd.DataFrame({
+    'generated text' : at_s1_Finns_emotions_are,
+})
+
+df.to_csv('at_s1_Finns_emotions_are.csv')
 ```
 ```py
 Finns_emotions_are_not = []
@@ -382,16 +484,49 @@ Finns_emotions_are_not = []
 for i in range (0, 10):
   x = pipe(f"Finn's emotions are not") #f string to allow use of apostrophe
   Finns_emotions_are_not.append(x)
+
+at_s1_Finns_emotions_are_not = []
+
+for i in Finns_emotions_are_not:
+    out = i[0]['generated_text']
+    at_s1_Finns_emotions_are_not.append(out)
+
+df = pd.DataFrame({
+    'generated text' : at_s1_Finns_emotions_are_not,
+})
+
+df.to_csv('at_s1_Finns_emotions_are_not.csv')
 ```
 ```py
 # now we will combine all outputs into a single dataframe and save that as a csv
-at_s1_outputs_all = female_bias + male_bias + person_bias + Finn_is + Finn_is_not + Finn_thinks + Finn_does_not_think + Finns_emotions_are + Finns_emotions_are_not
+at_s10_outputs_all = female_bias + male_bias + person_bias + at_s1_Finn_is + at_s1_Finn_is_not + at_s1_Finn_thinks + at_s1_Finn_does_not_think + at_s1_Finns_emotions_are + at_s1_Finns_emotions_are_not
 
 df = pd.DataFrame({
     'generated text' : at_s1_outputs_all ,
 })
 
 df.to_csv('at_s1_outputs_all .csv') # this will go into the folders file in Colab, be sure to download
+```
+
+```py
+# if your session ends before you are able to compile the generated text lists, use following code
+# update path to your directory 
+
+df_f_bias = pd.read_csv('/content/drive/MyDrive/.../at_s1_female_bias.csv')
+df_m_bias = pd.read_csv('/content/drive/MyDrive/.../at_s1_male_bias.csv')
+df_p_bias = pd.read_csv('/content/drive/MyDrive/.../at_s1_person_bias.csv')
+df_finn_is = pd.read_csv('/content/drive/MyDrive/.../at_s1_Finn_is.csv')
+df_finn_is_not = pd.read_csv('/content/drive/MyDrive/.../at_s1_Finn_is_not.csv')
+df_finn_thinks= pd.read_csv('/content/drive/MyDrive/.../at_s1_Finn_thinks.csv')
+df_finn_does_not_think = pd.read_csv('/content/drive/MyDrive/.../at_s1_Finn_does_not_think.csv')
+df_finns_emotions_are = pd.read_csv('/content/drive/MyDrive/.../at_s1_Finns_emotions_are.csv')
+df_finns_emotions_are_not = pd.read_csv('/content/drive/MyDrive/.../at_s1_Finns_emotions_are_not.csv')
+
+frames = [df_f_bias, df_m_bias, df_p_bias, df_finn_is, df_finn_is_not, df_finn_thinks, df_finn_does_not_think, df_finns_emotions_are, df_finns_emotions_are_not]
+
+result = pd.concat(frames)
+df = result.drop('Unnamed: 0', axis=1)
+df.to_csv('a1_s1_outputs_all.csv')
 ```
 ## Repeat the process
 Starting from fine-tuning, for season 10, being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of a color-coded spreadsheet of the author's outputs for season 1 and season 10 to allow for easier comparison of outputs.
