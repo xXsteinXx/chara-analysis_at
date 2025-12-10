@@ -354,9 +354,8 @@ df = pd.DataFrame({
 })
 
 df.to_csv('at_person_bias.csv')
- ```
-
 ```
+
 ## Bias Analysis
 
 The show was marketed to young teen boys in the early 2010s, so there is some bias towards female characters as love interests more so than a male character would be (a frequent subplot is that the Ice King kidnaps princesses because he wants to date them). Although it is interesting to note that the "a person is" prompt generated more crying and shouting outputs. This is perhaps to create foils out of neutral characters for the masculinity of the main character. This can be seen in the fact that the statements generated about a man are all action statements, while a large portion of the statements generated for a woman involve emotionality and kissing male characters. This gender bias seems to come from the transcript itself rather than GPT-2 as the actions/emotions are relevant to the transcript and do not describe actions/emotions that would not occur in the show. There will be further analysis, including comparison to the 10th season outputs, near the end of this page. The rest of the outputs generated for the author are compilled in a spreadsheet shared before the anlysis.
