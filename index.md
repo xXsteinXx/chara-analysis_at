@@ -233,9 +233,9 @@ Now we can start prompting for real.
 
 The GPT-2 model card states:
 
-“Because large-scale language models like GPT-2 do not distinguish fact from fiction, we don’t support use-cases that require the generated text to be true.
+>“Because large-scale language models like GPT-2 do not distinguish fact from fiction, we don’t support use-cases that require the generated text to be true.
 
-Additionally, language models like GPT-2 reflect the biases inherent to the systems they were trained on, so we do not recommend that they be deployed into systems that interact with humans unless the deployers first carry out a study of biases relevant to the intended use-case. We found no statistically significant difference in gender, race, and religious bias probes between 774M and 1.5B, implying all versions of GPT-2 should be approached with similar levels of caution around use cases that are sensitive to biases around human attributes.”
+>Additionally, language models like GPT-2 reflect the biases inherent to the systems they were trained on, so we do not recommend that they be deployed into systems that interact with humans unless the deployers first carry out a study of biases relevant to the intended use-case. We found no statistically significant difference in gender, race, and religious bias probes between 774M and 1.5B, implying all versions of GPT-2 should be approached with similar levels of caution around use cases that are sensitive to biases around human attributes.”
 
 The model in this research is unlikely to present harmful bias based on the limited text it was provided during fine-tuning, but we will run a simple gender bias test. Finn is the only human for a majority of the series (most characters being fantasy creatures or humanoids) so race is not a concept. Age or religious sentiment bias could be an extension of this work but will be omited here for sake of being concise.
 
@@ -393,19 +393,25 @@ df = pd.DataFrame({
 
 df.to_csv('at_s1_outputs_all .csv') # this will go into the folders file in Colab, be sure to download
 ```
-Repeat the process, starting from fine-tuning, for season 10 being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of the atuhor's outputs for season 1 and season 10 in a spreadsheet to allow for easier comparison of outputs.
+## Repeat the process
+Starting from fine-tuning, for season 10, being sure to save the model (named appropriately) and the final csv file containing all outputs. Bellow is an embedding of a color-coded spreadsheet of the author's outputs for season 1 and season 10 to allow for easier comparison of outputs.
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vR9TKtvDq60miHuSPNnhqk9BjLh8qEelm-RYTUsn5QZSJJWBzRT6GvFFqoZrllVNbxTLaLkQT8r9Epm/pubhtml?widget=true&amp;headers=false" height="600px" width="650px" ></iframe>
 
 
 # Analysis
 
-Now that we’ve generated 10 sentences for several of the same prompts using the model fine-tuned on the first season and the last season of _Adventure Time_, we can compare what the statements are saying in each prompt. Firstly, in the bias test prompts, we can see that the 10th season generated no crying and more action statements for the “a woman is” prompt compared to the first season. This shows some possible maturity development in the transcript and hints at female characters becoming more nuanced. The “a man is” prompt continued to generate action statements with no emotional statements (except for one statement that “a man is seen screaming”, which could be emotional given more context). The “a person is” statements also now fully omit any hint of emotionality. Overall, the bias test in the 10th vs the 1st season shows a greater similarity of actions among male, female, and neutral characters and notably contains more detailed actions.
-However, it is lacking in emotional statements. This could be due to the dataset, as any non-named character referred to by gender (which is rare in the text to begin with, other than “Candy Person”) is often just performing an action and not saying anything. The lack of emotionality also highlights and lack of context this text-generation tool is able to provide. Why would a man be screaming? Why would a woman be cheering? Why is a person running away?
+## Bias
+
+Now that we’ve generated 10 sentences for several of the same prompts using the model fine-tuned on the first season and the last season of _Adventure Time_, we can compare what the statements are saying in each prompt. Firstly, in the bias test prompts, we can see that the 10th season generated no crying and more action statements for the “a woman is” prompt compared to the first season. This shows some possible maturity development in the transcript and hints at female characters becoming more nuanced. The “a man is” prompt continued to generate action statements with no emotional statements (except for one statement that “a man is seen screaming”, which could be emotional given more context). The “a person is” statements also now fully omit any hint of emotionality. Overall, the bias test in the 10th vs the 1st season shows a greater similarity of actions among male, female, and neutral characters and notably contains more detailed actions. 
+
+However, it is lacking in emotional statements. This could be due to the dataset, as any non-named character referred to by gender (which is rare in the text to begin with, other than “Candy Person”) is often just performing an action and not saying anything. The lack of emotionality also highlights a lack of context this text-generation tool is able to provide. Why would a man be screaming? Why would a woman be cheering? Why is a person running away? The outputs are too vague to complete an in-depth analysis of bias.
+
+## Finn the Human
 
 For the “Finn is” prompt, the generated statements became more detailed, but generally lacked further context to perform a deeper character analysis besides the 4th generated statement which contains “Finn is about to make a startling, terrifying decision. He shapeshifts to look like a giant butterfly”. This generated text hints at Finn’s growing responsibilities within the show and his anxieties around his own actions. The butterfly imagery is notable as well, as they are often symbols for change and growth. 
 
-The “Finn is not” prompt for the 10th season curiously returned several “Finn is not amused” statements, which is interesting considering the only time the word “amused” is used in the 10th season is by a side character.  This may be due to there being 300 counts of the word “is” but only 4 counts “is not”.  However, that count is similar in the first season transcript. It’s hard to say due to lack of context within the outputs, but this may, knowing Finn is 17 this season, hint at some teenage moodiness or a change in character tone, from a goofy 12 year old to a determined savior of the world. 
+The “Finn is not” prompt for the 10th season curiously returned several “Finn is not amused” statements, which is interesting considering the only time the word “amused” is used in the 10th season is by a side character. This may be due to there being 300 counts of the word “is” but only 4 counts of “is not”.  However, that count is similar in the first season's transcript. It’s hard to say due to lack of context within the outputs, but this may, knowing Finn is 17 this season, hint at some teenage moodiness or a change in character tone from a goofy 12 year old to a determined savior of the world. 
 
 The “Finn does not think” prompt had the most notable change between season 1 and 10. The prompt was repetitive and vague in the first season, but in the 10th the outputs are much more verbose. We go from “Finn does not think so” to “Finn does not think Jake will understand the significance of his birthday present”. This is much more revealing of Finn’s depth as a character, hinting at internal thought processes that consider the thoughts of another character. The outputs in the 10th season for this prompt paint a character who is much more in touch with himself, the people around him, and how his thoughts and actions affect each other.
 
