@@ -164,7 +164,7 @@ tokenizer.padding_side = "right"
 training_params = SFTConfig(
     output_dir='/content/drive/MyDrive/...', # depends on your working directory
     num_train_epochs = 3, # how many times the dataset is iterated over
-    learning_rate = 2e-4, # sets "step size" that models takes to adjust size of changes the model makes, can also be cosnidered the "loss" between given data and output (often best adjusted through trial and error)
+    learning_rate = 2e-4, # sets "step size" that models takes to adjust size of changes the model makes, can also be considered the "loss" between given data and output (often best adjusted through trial and error)
     weight_decay = 0.001, # regularizes the parameters to avoid overfitting (output is simlar or the same as the training data)
     dataset_text_field = "text",
     report_to="none", # disables all logging (data collections of the training process)
@@ -536,7 +536,7 @@ The “Finn does not think” prompt had the most notable change between season 
 
 ## Conclusion
 
-While there are certainly illuminating comparisons to make between the two model’s outputs, they would need to be evaluated and used by someone already familiar with the series to gain any insight into Finn's development as a character. The transcript does include subtle animation of the character, such as his facial expression, music, or tone of voice - all of which would paint a clearler picture of the emotions, thoughts, and struggles Finn experiences. This same method may perform better for a fully textual piece of media, but one should be careful and respectful of an authors intellectual and creative property. Works from the public domain are fair game, such as those found in [Project Gutenberg](https://www.gutenberg.org/). 
+While there are certainly illuminating comparisons to make between the two model’s outputs, they would need to be evaluated and used by someone already familiar with the series to gain any insight into Finn's development as a character. The transcript does not include subtle animations of the character, such as his facial expressions, music, or tone of voice - all of which would paint a clearler picture of the emotions, thoughts, and struggles Finn experiences. This same method may perform better for a fully textual piece of media, but one should be careful and respectful of an authors intellectual and creative property. Works from the public domain are fair game, such as those found in [Project Gutenberg](https://www.gutenberg.org/). 
 
 
 ## Positionality Statement

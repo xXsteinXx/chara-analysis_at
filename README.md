@@ -87,6 +87,6 @@ This guide/website explains how to create each of the following files yourself, 
 * **at_s1_outputs_all.csv** = csv file containing all generated text from each prompt from the model fine-tuned with season 1
 * **at_s10_outputs_all.csv** = csv file containing all generated text from each prompt from the model fined-tuned with season 10
 * **at_s1_scrape.py** = code scrape the first season transcript from the _Adventure Time_ wiki
-* **at_s1_scrape.py** = code scrape the tenth season transcript from the _Adventure Time_ wiki
+* **at_s10_scrape.py** = code scrape the tenth season transcript from the _Adventure Time_ wiki
 * **Transformers_Finn_Analysis.xlsx** = color coded excel sheet containing s1 and s10 outputs side-by-side for easier analysis
 
