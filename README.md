@@ -10,8 +10,8 @@ first and last season’s transcripts of the Cartoon Network series,
 _Adventure Time_. I will prompt each model with the same prompts to compare
 and contrast the characterization of the main character of the series,
 Finn the Human, from the first to last season. The first season is full of
-juvenile jokes and pre-pubescent themes (Finn blushes around the (older-
-than-him) princess and enjoys punching bad guys and monsters). While there
+juvenile jokes and pre-pubescent themes (Finn blushes around the older-
+than-him princess and enjoys punching bad guys and monsters). While there
 is no lack of silly jokes and scenarios in the final seasons, the show
 incorporates themes of maturation, sexuality, and existentialism that I as
 a pre-pubescent middle schooler in the early 2010s would have never
@@ -30,14 +30,14 @@ character analysis, it does not compare to the research and understanding
 that a viewer of the series would be able to cultivate. For someone who is
 not familiar with the material, only reading the model’s outputs would
 likely give a poor imitation of the characters themselves. I will be
-conducting this case study to highlight improper use of generative-AI and
+conducting this case study to highlight improper use of generative AI and
 the greater effectiveness (for research, efficiency, and energy use) of
-training and/or fine-tuning a hyper-specific model not intending to be
+training and/or fine-tuning a hyper-specific model that is not meant to be
 “creatively” generative.
 
 ## workflow
-I will be utilizing requests, transformers, pipelines, pandas,
-BeautifulSoup4, lxml, re, and csv. My methods are to fine-tune
+I utilized requests, transformers, pipelines, pandas,
+BeautifulSoup4, lxml, re, and csv. My first goal was to fine-tune
 GPT-2 via Hugging Face on the transcripts from the first and tenth season
 of the series. The transcripts were scrapped from the Adventure Time Wiki,
 a fan-made and sustained Wikipedia page with community content mostly
@@ -45,18 +45,17 @@ under a CC-BY-SA license. Once fine-tuned, I prompted each model with
 the starters “Finn is/is not", “Finn’s emotions are/are not”, and “Finn thinks/does not think”. I believe these
 prompts, based on previous experimentation, will return results that
 highlight Finn’s character, decisions, and emotions. Before prompting, I
-conducted a bias check on the models by prompting “a woman is”,
+conducted a gender bias check on the models by prompting “a woman is”,
 “a man is”, and “a person is”. Doing so highlights potential gender
 bias in the model and if the bias is due to the show
 itself or the GPT-2 model. As a watcher of the series, female characters
-were often treated as love interests in the series, so I am expected a
-level of bias that generates for emotional responses for “a woman is”. If
+were often treated as love interests so I expected emotional responses for “a woman is”. If
 something about women is generated that would not make sense within the
 context of the show, than that would be bias inherent in the GPT-2 model.
 
 ## further uses
 
-Throughout the process I will be explaining terms and
+Throughout the process I explain terms and
 methods used in fine-tuning for anyone who is unfamiliar with the process
 to understand aspects of generative AI. Many people, both who use and
 reject AI, do not fully understand how generative AI works. I myself am
@@ -74,7 +73,7 @@ expansion for this project).
 
 ## files list: 
 
-This guide/website explains how to create each of the following files yourself, but for accessibility/flexibitliy, you may suplement parts of the work with the follow files locating in the author_files folder (such as loading in the model instead of creating them yourself)
+This guide/website explains how to create each of the following files yourself, but for accessibility/flexibitliy, you may suplement parts of the work with the following files located in the author_files folder (such as loading in the model instead of creating them yourself)
 
 * **at_s1_model** = folder, fine-tuned transformers model (GPT-2) on the transcript of the first season of Adventure Time
 * **at_s10_model** = folder, fine-tuned transformers model (GPT-2) on the transcript of the tenth season of Adventure Time
